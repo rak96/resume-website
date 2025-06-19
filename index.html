@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rakesh Ramesh - Senior Research Scientist</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Matrix Rain Effect -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="terminal-prompt">$</span>
+                <span class="typing-text">rakesh_ramesh</span>
+            </div>
+            <div class="nav-links">
+                <a href="#about" data-text="./about">./about</a>
+                <a href="#education" data-text="./education">./education</a>
+                <a href="#experience" data-text="./experience">./experience</a>
+                <a href="#skills" data-text="./skills">./skills</a>
+                <a href="#contact" data-text="./contact">./contact</a>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero" id="about">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-buttons">
+                    <span class="btn-close"></span>
+                    <span class="btn-minimize"></span>
+                    <span class="btn-maximize"></span>
+                </div>
+                <div class="terminal-title">rakesh@ai-researcher: ~</div>
+            </div>
+            <div class="terminal-body">
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span class="command">whoami</span>
+                </div>
+                <div class="output">
+                    <h1 class="hero-title">
+                        <span class="glitch" data-text="Rakesh Ramesh">Rakesh Ramesh</span>
+                    </h1>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span class="command">cat role.txt</span>
+                </div>
+                <div class="output">
+                    <p class="hero-subtitle">Senior Research Scientist @ Cerence AI</p>
+                    <p class="hero-focus">Specialized in: LLMs, Conversational AI, ML Engineering</p>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span class="command">pwd</span>
+                </div>
+                <div class="output">
+                    <p class="hero-location">
+                        <i class="fas fa-map-marker-alt"></i>
+                        /home/austin_tx
+                    </p>
+                </div>
+                <div class="terminal-line">
+                    <span class="prompt">$</span>
+                    <span class="command">ls -la contact/</span>
+                </div>
+                <div class="output">
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-terminal"></i>
+                            ./contact.sh
+                        </a>
+                        <a href="mailto:rameshrakesh730@gmail.com" class="btn btn-secondary">
+                            <i class="fas fa-envelope"></i>
+                            send_email.py
+                        </a>
+                    </div>
+                </div>
+                <div class="cursor"></div>
+            </div>
+        </div>
+        
+        <div class="hero-stats">
+            <div class="stat-terminal">
+                <div class="stat-header">./stats --experience</div>
+                <div class="stat-value">4+ years</div>
+            </div>
+            <div class="stat-terminal">
+                <div class="stat-header">./stats --companies</div>
+                <div class="stat-value">5+ organizations</div>
+            </div>
+            <div class="stat-terminal">
+                <div class="stat-header">./stats --specialization</div>
+                <div class="stat-value">AI/ML Research</div>
+            </div>
+        </div>
+    </header>
+
+    <section class="education" id="education">
+        <div class="container">
+            <h2 class="section-title">Education</h2>
+            <div class="education-grid">
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Master's in Computer Science</h3>
+                        <p class="institution">Texas Tech University, Lubbock, Texas</p>
+                        <p class="details">May 2020 • GPA: 3.5/4.0</p>
+                        <span class="achievement">Graduate Student Scholarship</span>
+                    </div>
+                </div>
+                <div class="education-card">
+                    <div class="education-icon">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <div class="education-content">
+                        <h3>Bachelor's in Computer Science & Engineering</h3>
+                        <p class="institution">Sri Sairam Engineering College, India</p>
+                        <p class="details">April 2017 • GPA: 7.19/10.0</p>
+                        <span class="achievement">Anna University Affiliated</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="experience" id="experience">
+        <div class="container">
+            <h2 class="section-title">Professional Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Senior Research Scientist</h3>
+                            <span class="company">Cerence AI, Austin, Texas</span>
+                            <span class="duration">Nov 2024 – Present</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Architected and implemented a domain-aware orchestration system for an in-vehicle LLM (CaLLM), enabling natural language understanding beyond pre-defined commands</li>
+                            <li>Developed conversational AI system leveraging Small Language Models (SLMs) for real-time vehicle status queries on NVIDIA DGX infrastructure</li>
+                            <li>Fine-tuned open source LLMs using Supervised Fine-Tuning (SFT), Direct Preference Optimization (DPO), and Low-Rank Adaptation (LoRA)</li>
+                            <li>Implemented hallucination detection and mitigation techniques using context window optimization and embeddings-based chunking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Scientist</h3>
+                            <span class="company">Weight Watchers International Inc, Austin, Texas</span>
+                            <span class="duration">Oct 2022 – Sep 2024</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Developed LangChain-powered chatbot and Recipe Points Estimator using OpenAI models and agentic RAG</li>
+                            <li>Transformed food database into sophisticated knowledge graph with LLM prompt engineering for ingredient generation</li>
+                            <li>Led project to organize restaurant food data using fine-tuned LLM-based prompting strategies</li>
+                            <li>Engineered personalized, sequence-based predictive model for user food tracking habits</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Data Scientist</h3>
+                            <span class="company">XSELL Technologies, Chicago, Illinois</span>
+                            <span class="duration">Sep 2020 – Oct 2022</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Developed neural network classifier for Voice CoBot, boosting topic prediction accuracy by 15%</li>
+                            <li>Led successful fine-tuning of BERT, eliminating reliance on regex classifiers and reducing training time by 40%</li>
+                            <li>Directed data science team as sole point of contact for new client projects</li>
+                            <li>Leveraged semi-supervised and active learning techniques to increase labeled data volume by 50%</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Graduate Research Assistant</h3>
+                            <span class="company">Texas Tech University, Lubbock, Texas</span>
+                            <span class="duration">Oct 2019 – May 2020</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Implemented Python script for detecting spurious peaks in NemaFlex experiment data for NASA and SpaceX team</li>
+                            <li>Developed Computer Vision techniques in MATLAB for C. Elegans detection and auto-cropping experimental videos</li>
+                            <li>Created script for converting tiff stack to AVI files with batch processing capabilities</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <h3>Algorithms Intern</h3>
+                            <span class="company">Carl Zeiss Meditec AG, Dublin, California</span>
+                            <span class="duration">June 2019 – August 2019</span>
+                        </div>
+                        <ul class="achievements">
+                            <li>Implemented deep learning algorithm using U-Net architecture for medical image segmentation with 88% accuracy</li>
+                            <li>Designed grading and classification systems using VGG16 and Inception with 90% accuracy, sensitivity, and specificity</li>
+                            <li>Compared models with ResNet, InceptionResNetV2, Xception, and VGG19 architectures</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="skills" id="skills">
+        <div class="container">
+            <h2 class="section-title">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Programming Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">R</span>
+                        <span class="skill-tag">C#</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">PL/SQL</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">C</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-cloud"></i> Cloud Platforms</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Amazon Web Services</span>
+                        <span class="skill-tag">Google Cloud Platform</span>
+                        <span class="skill-tag">NVIDIA DGX</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-tools"></i> Software & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Jupyter</span>
+                        <span class="skill-tag">Snowflake</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">MongoDB</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3><i class="fas fa-brain"></i> AI/ML Libraries</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TensorFlow</span>
+                        <span class="skill-tag">Keras</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">LangChain</span>
+                        <span class="skill-tag">OpenAI</span>
+                        <span class="skill-tag">Gensim</span>
+                        <span class="skill-tag">NLTK</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">Streamlit</span>
+                        <span class="skill-tag">Kafka</span>
+                        <span class="skill-tag">Snowpark</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Let's Connect</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>Email</h4>
+                            <a href="mailto:rameshrakesh730@gmail.com">rameshrakesh730@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h4>Phone</h4>
+                            <a href="tel:806-620-8983">806-620-8983</a>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div>
+                            <h4>LinkedIn</h4>
+                            <a href="https://www.linkedin.com/in/rakesh-ramesh-data-scientist" target="_blank">Connect with me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Rakesh Ramesh. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
