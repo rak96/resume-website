@@ -22,7 +22,9 @@ A modern, responsive resume website showcasing the professional experience and s
 
 ## Live Demo
 
-Visit the live website: [Your deployment URL will go here]
+Visit the live website: 
+- **GitHub Pages:** https://rak96.github.io/resume-website
+- **Vercel:** https://rakesh-resume-j92jfjvhs-rakeshs-projects-4548add8.vercel.app
 
 ## Deployment Options
 
