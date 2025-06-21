@@ -436,7 +436,7 @@ document.addEventListener('DOMContentLoaded', () => {
 class ProjectsLoader {
     constructor() {
         this.config = window.PROJECTS_CONFIG || {};
-        this.githubUsername = this.config.GITHUB_USERNAME || 'rakesh-ramesh';
+        this.githubUsername = this.config.GITHUB_USERNAME || 'rak96';
         this.projectsGrid = document.getElementById('projects-grid');
         this.loadProjects();
     }
