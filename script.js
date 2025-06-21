@@ -51,6 +51,7 @@ class MatrixRain {
 // Initialize Matrix Rain
 document.addEventListener('DOMContentLoaded', () => {
     new MatrixRain();
+    new ProjectsLoader();
 });
 
 // Terminal Typing Effect - One-time sequence
@@ -429,4 +430,234 @@ document.addEventListener('DOMContentLoaded', () => {
 // Initialize Terminal Typer
 document.addEventListener('DOMContentLoaded', () => {
     new TerminalTyper();
-}); 
+});
+
+// Projects Loader - Auto-fetch GitHub repositories
+class ProjectsLoader {
+    constructor() {
+        this.config = window.PROJECTS_CONFIG || {};
+        this.githubUsername = this.config.GITHUB_USERNAME || 'rakesh-ramesh';
+        this.projectsGrid = document.getElementById('projects-grid');
+        this.loadProjects();
+    }
+    
+    async loadProjects() {
+        try {
+            const repos = await this.fetchGitHubRepos();
+            const vercelProjects = await this.filterVercelProjects(repos);
+            this.displayProjects(vercelProjects);
+        } catch (error) {
+            console.error('Error loading projects:', error);
+            this.showError();
+        }
+    }
+    
+    async fetchGitHubRepos() {
+        const response = await fetch(`https://api.github.com/users/${this.githubUsername}/repos?sort=updated&per_page=100`);
+        if (!response.ok) {
+            throw new Error(`GitHub API error: ${response.status}`);
+        }
+        return await response.json();
+    }
+    
+    async filterVercelProjects(repos) {
+        const vercelProjects = [];
+        
+        for (const repo of repos) {
+            if (repo.fork) continue; // Skip forked repositories
+            
+            try {
+                // Check if repository has vercel.json (indicating Vercel deployment)
+                const vercelConfigResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/contents/vercel.json`);
+                const hasVercelConfig = vercelConfigResponse.ok;
+                
+                // Check if repository has package.json (for web apps)
+                const packageJsonResponse = await fetch(`https://api.github.com/repos/${repo.full_name}/contents/package.json`);
+                const hasPackageJson = packageJsonResponse.ok;
+                
+                if (hasVercelConfig || hasPackageJson) {
+                    // Try to get additional deployment info
+                    const deploymentUrl = await this.getVercelDeploymentUrl(repo);
+                    vercelProjects.push({
+                        ...repo,
+                        deployment_url: deploymentUrl,
+                        has_vercel_config: hasVercelConfig,
+                        has_package_json: hasPackageJson
+                    });
+                }
+            } catch (error) {
+                console.warn(`Error checking ${repo.name}:`, error);
+                // Include repo anyway if it looks like a web project
+                const projectKeywords = this.config.PROJECT_KEYWORDS || ['app', 'web', 'site'];
+                if (repo.description && projectKeywords.some(keyword => 
+                    repo.description.toLowerCase().includes(keyword))) {
+                    vercelProjects.push(repo);
+                }
+            }
+        }
+        
+        return vercelProjects.slice(0, this.config.MAX_PROJECTS || 9); // Limit to configured number of projects
+    }
+    
+    async getVercelDeploymentUrl(repo) {
+        // Try to construct Vercel URL based on common patterns
+        const repoName = repo.name.toLowerCase();
+        const username = this.githubUsername.toLowerCase();
+        
+        // Common Vercel URL patterns
+        const possibleUrls = [
+            `https://${repoName}.vercel.app`,
+            `https://${repoName}-${username}.vercel.app`,
+            `https://${repoName}-git-main-${username}.vercel.app`
+        ];
+        
+        for (const url of possibleUrls) {
+            try {
+                const response = await fetch(url, { method: 'HEAD', mode: 'no-cors' });
+                return url; // Return first working URL
+            } catch (error) {
+                continue;
+            }
+        }
+        
+        return null;
+    }
+    
+    displayProjects(projects) {
+        if (projects.length === 0) {
+            this.projectsGrid.innerHTML = `
+                <div class="error-message">
+                    <span class="prompt">$</span>
+                    <span class="command">echo "No Vercel projects found"</span>
+                </div>
+            `;
+            return;
+        }
+        
+        const projectsHTML = projects.map(project => this.createProjectCard(project)).join('');
+        this.projectsGrid.innerHTML = projectsHTML;
+        
+        // Add stagger animation
+        const cards = this.projectsGrid.querySelectorAll('.project-card');
+        cards.forEach((card, index) => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.5s ease';
+            
+            setTimeout(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+            }, index * 100);
+        });
+    }
+    
+    createProjectCard(project) {
+        const deploymentUrl = project.deployment_url || `https://${project.name.toLowerCase()}.vercel.app`;
+        const repoUrl = project.html_url;
+        const description = project.description || 'A web application built with modern technologies';
+        const language = project.language || 'JavaScript';
+        const stars = project.stargazers_count || 0;
+        const forks = project.forks_count || 0;
+        const lastUpdated = new Date(project.updated_at).toLocaleDateString();
+        
+        // Extract technologies from description or use defaults
+        const technologies = this.extractTechnologies(description, language);
+        
+        return `
+            <div class="project-card">
+                <div class="project-header">
+                    <a href="${deploymentUrl}" target="_blank" class="project-title">
+                        ${project.name}
+                    </a>
+                    <div class="project-links">
+                        <a href="${deploymentUrl}" target="_blank" class="project-link">
+                            <i class="fas fa-external-link-alt"></i>
+                            Live
+                        </a>
+                        <a href="${repoUrl}" target="_blank" class="project-link">
+                            <i class="fab fa-github"></i>
+                            Code
+                        </a>
+                    </div>
+                </div>
+                <p class="project-description">${description}</p>
+                <div class="project-tech">
+                    ${technologies.map(tech => `<span class="tech-tag">${tech}</span>`).join('')}
+                </div>
+                <div class="project-stats">
+                    <div class="project-stat">
+                        <i class="fas fa-star"></i>
+                        <span>${stars}</span>
+                    </div>
+                    <div class="project-stat">
+                        <i class="fas fa-code-branch"></i>
+                        <span>${forks}</span>
+                    </div>
+                    <div class="project-stat">
+                        <i class="fas fa-calendar"></i>
+                        <span>${lastUpdated}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+    
+    extractTechnologies(description, language) {
+        const technologies = new Set();
+        
+        // Add primary language
+        if (language) {
+            technologies.add(language);
+        }
+        
+        // Use configured tech keywords or fallback to defaults
+        const techKeywords = this.config.TECH_KEYWORDS || {
+            'React': ['react', 'jsx'],
+            'Vue': ['vue', 'vuejs'],
+            'Angular': ['angular'],
+            'Next.js': ['next', 'nextjs'],
+            'TypeScript': ['typescript', 'ts'],
+            'Node.js': ['node', 'nodejs', 'express'],
+            'Python': ['python', 'django', 'flask', 'fastapi'],
+            'Tailwind': ['tailwind', 'tailwindcss'],
+            'Bootstrap': ['bootstrap'],
+            'MongoDB': ['mongodb', 'mongo'],
+            'Firebase': ['firebase'],
+            'Vercel': ['vercel']
+        };
+        
+        const desc = description.toLowerCase();
+        for (const [tech, keywords] of Object.entries(techKeywords)) {
+            if (keywords.some(keyword => desc.includes(keyword))) {
+                technologies.add(tech);
+            }
+        }
+        
+        // If no technologies found, add some defaults based on language
+        if (technologies.size === 0) {
+            if (language === 'JavaScript') {
+                technologies.add('JavaScript');
+                technologies.add('HTML');
+                technologies.add('CSS');
+            } else if (language === 'TypeScript') {
+                technologies.add('TypeScript');
+                technologies.add('JavaScript');
+            } else if (language === 'Python') {
+                technologies.add('Python');
+            }
+        }
+        
+        return Array.from(technologies).slice(0, 5); // Limit to 5 technologies
+    }
+    
+    showError() {
+        this.projectsGrid.innerHTML = `
+            <div class="error-message">
+                <span class="prompt">$</span>
+                <span class="command">curl -s "github.com/api/error"</span>
+                <br>
+                <span style="color: var(--text-error);">Failed to fetch projects. Please check your GitHub username and try again.</span>
+            </div>
+        `;
+    }
+}
